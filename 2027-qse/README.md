@@ -20,14 +20,14 @@ cd 2027-qse
 docker compose up --build
 ```
 
-The first start builds the modeler from its sources, which takes a few minutes. By default,
-the sources are fetched from the
-[modeler repository](https://github.com/AnonymousUserAccount958/quantum-low-code-modeler); to use a
-local copy instead, set `MODELER_SOURCES` (e.g., in a `.env` file next to
-`docker-compose.yml`):
+The first start builds the modeler from its sources, which takes a few minutes. The sources
+are fetched during the build from the
+[modeler repository](https://github.com/AnonymousUserAccount958/quantum-low-code-modeler), so no
+local copy is needed. To use another repository or branch, set `MODELER_REPO` (e.g., in a
+`.env` file next to `docker-compose.yml`):
 
 ```bash
-MODELER_SOURCES=../path/to/quantum-low-code-modeler
+MODELER_REPO=https://github.com/<user>/quantum-low-code-modeler.git#<branch>
 ```
 
  Afterwards, the following services are available:

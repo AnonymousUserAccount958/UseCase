@@ -1,6 +1,11 @@
 # Runs the validation without a local Python or Node installation.
-# Build context: the 2027-qse folder; the modeler sources are the additional build context
-# "modeler" (MODELER_SOURCES), see docker-compose.yml.
+# Build context: the 2027-qse folder; the modeler sources are fetched from MODELER_REPO
+# (git URL, optionally with #branch), see docker-compose.yml.
+
+# 0. Sources of the modeler
+FROM scratch AS modeler
+ARG MODELER_REPO=https://github.com/AnonymousUserAccount958/quantum-low-code-modeler.git#main
+ADD ${MODELER_REPO} /
 
 # 1. Generate the snippets and the reference states with Qiskit
 FROM python:3.12-slim AS qiskit

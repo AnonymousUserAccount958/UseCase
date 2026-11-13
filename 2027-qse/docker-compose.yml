@@ -5,12 +5,13 @@
 # Modeler: http://localhost:4242   Backend (model -> OpenQASM 3): http://localhost:8000
 
 services:
-  # Quantum low-code modeler incl. the derivation view, built from MODELER_SOURCES
-  # (a git URL or a local folder, e.g. set in a local, untracked .env file)
+  # Quantum low-code modeler incl. the derivation view; the sources are fetched from
+  # MODELER_REPO (git URL, optionally with #branch) during the build, see modeler/Dockerfile
   modeler:
     build:
-      context: ${MODELER_SOURCES:-https://github.com/AnonymousUserAccount958/quantum-low-code-modeler.git}
-      dockerfile: Dockerfile
+      context: ./modeler
+      args:
+        MODELER_REPO: ${MODELER_REPO:-https://github.com/AnonymousUserAccount958/quantum-low-code-modeler.git#main}
     env_file:
       - modeler.env
     ports:
@@ -56,7 +57,7 @@ services:
     build:
       context: .
       dockerfile: validation/Dockerfile
-      additional_contexts:
-        modeler: ${MODELER_SOURCES:-https://github.com/AnonymousUserAccount958/quantum-low-code-modeler.git}
+      args:
+        MODELER_REPO: ${MODELER_REPO:-https://github.com/AnonymousUserAccount958/quantum-low-code-modeler.git#main}
     volumes:
       - ./qasm:/validation/qasm:ro
