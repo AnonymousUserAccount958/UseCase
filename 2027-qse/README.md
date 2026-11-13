@@ -5,7 +5,7 @@ Relating Quantum Low-Code Models, Code, and Mathematics*:
 
 | Path | Content |
 | --- | --- |
-| [`docker-compose.yml`](docker-compose.yml) | Starts the low-code modeler with the derivation view and the backend that generates the OpenQASM 3 code |
+| [`docker-compose.yml`](docker-compose.yml) | Starts the quantum low-code modeler with the derivation view and the backend that generates the OpenQASM 3 code |
 | [`modeler.env`](modeler.env) | Configuration of the modeler |
 | [`use-case/`](use-case) | Use case of Section IV (faulty Grover oracle): models of the steps, screenshots, and a step-by-step walkthrough |
 | [`qasm/`](qasm) | OpenQASM 3 snippets of the validation (Section V-A), grouped into their parts |
@@ -22,12 +22,12 @@ docker compose up --build
 
 The first start builds the modeler from its sources, which takes a few minutes. By default,
 the sources are fetched from the
-[modeler repository](https://github.com/AnonymousUserAccount958/low-code-modeler); to use a
+[modeler repository](https://github.com/AnonymousUserAccount958/quantum-low-code-modeler); to use a
 local copy instead, set `MODELER_SOURCES` (e.g., in a `.env` file next to
 `docker-compose.yml`):
 
 ```bash
-MODELER_SOURCES=../path/to/low-code-modeler
+MODELER_SOURCES=../path/to/quantum-low-code-modeler
 ```
 
  Afterwards, the following services are available:

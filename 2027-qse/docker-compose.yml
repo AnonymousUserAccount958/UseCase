@@ -9,7 +9,7 @@ services:
   # (a git URL or a local folder, e.g. set in a local, untracked .env file)
   modeler:
     build:
-      context: ${MODELER_SOURCES:-https://github.com/AnonymousUserAccount958/low-code-modeler.git}
+      context: ${MODELER_SOURCES:-https://github.com/AnonymousUserAccount958/quantum-low-code-modeler.git}
       dockerfile: Dockerfile
     env_file:
       - modeler.env
