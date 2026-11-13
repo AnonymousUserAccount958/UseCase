@@ -11,6 +11,10 @@ Relating Quantum Low-Code Models, Code, and Mathematics*:
 | [`qasm/`](qasm) | OpenQASM 3 snippets of the validation (Section V-A), grouped into their parts |
 | [`validation/`](validation) | Scripts that generate the snippets with Qiskit and check the derivation against Qiskit, incl. a Docker setup |
 
+A video of the use case is available on YouTube:
+
+[![Video of the use case](https://img.youtube.com/vi/te5OFCcRejM/hqdefault.jpg)](https://youtu.be/te5OFCcRejM)
+
 ## Starting the Environment
 
 Requirements: [Docker](https://docs.docker.com/get-docker/) with Docker Compose.

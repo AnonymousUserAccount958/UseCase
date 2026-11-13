@@ -4,6 +4,10 @@ This folder contains the use case of Section IV of the paper. A learner is given
 building block that searches for |11⟩ on two qubits and is asked to change its oracle so that
 it marks |10⟩ instead.
 
+A video of the use case is available on [YouTube](https://youtu.be/te5OFCcRejM):
+
+[![Video of the use case](https://img.youtube.com/vi/te5OFCcRejM/hqdefault.jpg)](https://youtu.be/te5OFCcRejM)
+
 ![Given model with its code and its collapsed derivation](images/Figure_All_Views.png)
 
 *The given model in all three views: the **Search Element(s)** block (2 elements, element 3 to
