@@ -1,0 +1,62 @@
+# Environment for the paper "Teaching Quantum Software Engineering: Relating Quantum
+# Low-Code Models, Code, and Mathematics".
+#
+# Start from this folder with:  docker compose up --build
+# Modeler: http://localhost:4242   Backend (model -> OpenQASM 3): http://localhost:8000
+
+services:
+  # Quantum low-code modeler incl. the derivation view, built from MODELER_SOURCES
+  # (a git URL or a local folder, e.g. set in a local, untracked .env file)
+  modeler:
+    build:
+      context: ${MODELER_SOURCES:-https://github.com/AnonymousUserAccount958/low-code-modeler.git}
+      dockerfile: Dockerfile
+    env_file:
+      - modeler.env
+    ports:
+      - "4242:4242"
+    depends_on:
+      - backend
+
+  # Transforms the models into OpenQASM 3 code with node markers
+  backend:
+    image: ${BACKEND_IMAGE:-ghcr.io/leqo-framework/leqo-backend:main}
+    environment:
+      POSTGRES_USER: backend
+      POSTGRES_PASSWORD: backend
+      POSTGRES_DB: qasm
+      POSTGRES_PORT: 5432
+      POSTGRES_HOST: backend-db
+      SQLALCHEMY_DRIVER: postgresql+psycopg
+      QISKIT_COMPAT_MODE: "TRUE"
+    ports:
+      - "8000:80"
+    depends_on:
+      backend-db:
+        condition: service_healthy
+    restart: on-failure
+
+  backend-db:
+    image: postgres:16
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: backend
+      POSTGRES_PASSWORD: backend
+      POSTGRES_DB: qasm
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U backend -d qasm"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # Validation of the snippets in ./qasm against Qiskit (not started by "up"):
+  #   docker compose run --rm --build validation
+  validation:
+    profiles: ["validation"]
+    build:
+      context: .
+      dockerfile: validation/Dockerfile
+      additional_contexts:
+        modeler: ${MODELER_SOURCES:-https://github.com/AnonymousUserAccount958/low-code-modeler.git}
+    volumes:
+      - ./qasm:/validation/qasm:ro
