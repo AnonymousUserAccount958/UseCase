@@ -12,7 +12,8 @@ code, and its collapsed derivation |00⟩ →(Grover operator, 16 gates) −|11�
 
 | File | Content |
 | --- | --- |
-| [`given_model.json`](given_model.json) | Given model: Grover block (2 qubits, marked state 3 = \|11⟩, 1 iteration) expanded into Prepare State, Oracle, and Diffuser, with the oracle expanded to its gates H₁ · CNOT₀,₁ · H₁ (i.e., CZ₀,₁), followed by a measurement |
+| [`given_model_collapsed.json`](given_model_collapsed.json) | Given model as loaded in step 1: Grover Search Algorithm group (2 qubits, marked state 3 = \|11⟩, 1 iteration) with Prepare State, Mark the Target(s), and Emphasize Marked Target(s) as collapsed blocks (the oracle not yet expanded to its gates), followed by Readout the Result |
+| [`given_model.json`](given_model.json) | Given model after step 2: Grover Search Algorithm group (2 qubits, marked state 3 = \|11⟩, 1 iteration) with Prepare State, Mark the Target(s), and Emphasize Marked Target(s), with the oracle expanded to its gates H₁ · CNOT₀,₁ · H₁ (i.e., CZ₀,₁), followed by a measurement |
 | [`faulty_model.json`](faulty_model.json) | Model after the learner's first edit: X on q1 before the oracle's gates, second X missing |
 | [`grover_use_case_model_correct.json`](grover_use_case_model_correct.json) | Model after the learner corrected the given model: oracle X₁ · H₁ · CNOT₀,₁ · H₁ · X₁ (i.e., X₁ · CZ₀,₁ · X₁), which marks \|10⟩ |
 | [`images/`](images) | Screenshots of the steps below |
@@ -34,20 +35,25 @@ and open the modeler at <http://localhost:4242>.
 
 ### 1. Load the given model
 
-Click **Open New Diagram** in the toolbar and select [`given_model.json`](given_model.json).
-The canvas shows the **Search Element(s)** block with 2 elements, the element 3 (|11⟩) to
-search, and 1 iteration, followed by the **Readout the Result** block. The collapsed
-derivation reads
+1. In the toolbar, click the folder icon (**Open Diagram**), choose **Open Diagram**, and
+   select [`given_model_collapsed.json`](given_model_collapsed.json).
+2. Open the **Experience Mode** panel in the top left of the canvas, keep the experience
+   level **Explorer**, and switch on **Math Mode** and **QASM Editor**. The Properties panel then shows the derivation view and
+   the OpenQASM code next to the model.
+
+The canvas shows the **Grover Search Algorithm** group (2 qubits, element 3 = |11⟩ to search,
+1 iteration) with its three collapsed building blocks **Prepare State** (uniform
+superposition) → **Mark the Target(s)** → **Emphasize Marked Target(s)**, followed by the
+**Readout the Result** block. The collapsed derivation reads
 
 |00⟩ →(Grover operator, 16 gates) −|11⟩ = 3,
 
 i.e., |11⟩ up to a global phase.
 
-### 2. Expand the Grover block and its oracle
+### 2. Expand the oracle
 
-Expand the Grover block into its parts **Uniform superposition** → **Mark the Target(s)** (the
-oracle in phase-kickback mode, marked state 3) → **Diffusion operator**, and expand the oracle
-down to its gates H₁ · CNOT₀,₁ · H₁, which together form a CZ gate. The derivation view is
+Expand **Mark the Target(s)** (the oracle in phase-kickback mode, marked state 3) down to its
+gates H₁ · CNOT₀,₁ · H₁, which together form a CZ gate. The derivation view is
 structured like the model, so each part corresponds to one step that can be collapsed or
 pulled down: *Uniform superposition (2 gates)*, *Oracle (iteration 1) (3 gates)*, and
 *Diffusion operator (iteration 1) (11 gates)*.

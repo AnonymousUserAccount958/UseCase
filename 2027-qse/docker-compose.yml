@@ -57,6 +57,6 @@ services:
       context: .
       dockerfile: validation/Dockerfile
       additional_contexts:
-        modeler: ${MODELER_SOURCES:-https://github.com/AnonymousUserAccount958/low-code-modeler.git}
+        modeler: ${MODELER_SOURCES:-https://github.com/AnonymousUserAccount958/quantum-low-code-modeler.git}
     volumes:
       - ./qasm:/validation/qasm:ro
